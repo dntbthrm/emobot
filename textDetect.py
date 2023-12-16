@@ -1,3 +1,4 @@
+import os
 import urllib.request
 import json
 from preps import  *
@@ -24,6 +25,7 @@ def recognize(audio_wav):
     text = "hoho"
     if decodedData.get("error_code") is None:
         text = decodedData.get("result")
+    os.remove('audio_conv.ogg')
     return text
 
 
