@@ -45,7 +45,7 @@ def handle_voice_message(message):
             bot.send_message(message.chat.id, "Аудио не найдено...")
 
     except Exception as e:
-        bot.send_message(message.chat.id, e)
+        bot.send_message(message.chat.id, str(e))
 
 
 bot.polling(none_stop=True, interval=0)

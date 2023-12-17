@@ -3,7 +3,8 @@ import urllib.request
 import json
 from preps import  *
 def recognize(audio_wav):
-    IAM_TOKEN = "t1.9euelZqPzJackM3MiYyJiZXOz4qaie3rnpWajZPIxp3GmZSKnZSMjJXGmJfl8_dMVwhU-e9FFEQK_t3z9wwGBlT570UURAr-zef1656VmsuQj5GczJaOmc2MmZadkMyQ7_zF656VmsuQj5GczJaOmc2MmZadkMyQ.ojPxt6QX4gvO2CsBA4qsaj1hE_MCqdXvLjtRSds4bBXgW1vvPbzoXgTFEoqsIb2Qn46Ze_fXd57-mfnZDvYXDQ"
+    # данные для аутентификации
+    IAM_TOKEN = "t1.9euelZrKlsiWj5Wck86LnM3JmZGLzO3rnpWajZPIxp3GmZSKnZSMjJXGmJfl9PdPaARU-e8kfhvp3fT3DxcCVPnvJH4b6c3n9euelZqNmY3IzZnJyJyZjseSjsvKzO_8xeuelZqNmY3IzZnJyJyZjseSjsvKzA.enlM81uuXokzc8lgwpMsq0CVSlG6MklU-fYTwpa9ZkiiX3f2LNEQ4DqC38vt_TjekaUJuop7RqJVXeGUFC8EDw"
     FOLDER_ID = "b1gf4gqnn6p5j7irohgr"
     converter(audio_wav)
     with open("audio_conv.ogg", "rb") as f:
@@ -17,12 +18,12 @@ def recognize(audio_wav):
     ])
 
     url = urllib.request.Request("https://stt.api.cloud.yandex.net/speech/v1/stt:recognize?%s" % params, data=data)
-    # Аутентификация через IAM-токен.
+    # аутентификация
     url.add_header("Authorization", "Bearer %s" % IAM_TOKEN)
 
     responseData = urllib.request.urlopen(url).read().decode('UTF-8')
     decodedData = json.loads(responseData)
-    text = "hoho"
+    text = "Текст не распознан"
     if decodedData.get("error_code") is None:
         text = decodedData.get("result")
     os.remove('audio_conv.ogg')

@@ -3,6 +3,7 @@ import librosa
 import pandas as pd
 
 
+
 def extractor(file_path):
     # Загрузка аудиофайла
     y, sr = librosa.load(file_path, sr=None, offset=0.6)
@@ -26,4 +27,11 @@ def get_emo(file_path):
     data = pd.DataFrame([features], columns=['mfcc', 'rms', 'zcr', 'chroma', 'tonnetz'])
     model = joblib.load('RandomForestModel.pkl')
     res= model.predict(data)
+    return res[0]
+
+def emo_probs(file_path):
+    features = extractor(file_path)
+    data = pd.DataFrame([features], columns=['mfcc', 'rms', 'zcr', 'chroma', 'tonnetz'])
+    model = joblib.load('RandomForestModel.pkl')
+    res = model.predict_proba(data)
     return res[0]
